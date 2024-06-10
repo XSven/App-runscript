@@ -1,0 +1,65 @@
+=pod
+
+=head1 NAME
+
+App::runscript - Module that implements the runscript utility
+
+=head1 SYNOPSIS
+
+  runscript <perl script> <arguments pass to the perl script>
+
+=head1 DESCRIPTION
+
+This module assumes that you have deployed a perl script (application) locally
+using the L<local::lib/Other-bootstrapping-options> procedure.  Usually you are
+able to execute the script only because the PERL5LIB environment variable was
+amended. This amendment is needed so that the script is able to locate the
+libraries it depends on. If a script does not find its dependencies it will
+fail with the message
+
+  Can't locate ... in @INC (@INC contains: ...
+
+The C<runscript> ("run perl script") utility helps you to avoid the PERL5LIB
+amendment.
+
+=over
+
+=item -
+
+It finds out the absolute path of the given script. If the script is in the
+PATH you may pass its basename to runscript.
+
+=item -
+
+It takes the dirname of the absolute path and removes the I<bin> subdirectory.
+The result is the "install base".
+
+=item -
+
+It adds the directory I<lib/perl5> to the "install base".
+
+=item -
+
+It prepends the final library path to C<@INC> before executing the script.
+
+=back
+
+=head1 SEE ALSO
+
+=over 
+
+=item *
+
+L<App::local::lib::helper>
+
+=item *
+
+L<App::rlibperl>
+
+=item *
+
+L<App::rbinperl>
+
+=back
+
+=cut

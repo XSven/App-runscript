@@ -1,0 +1,26 @@
+#!perl
+
+use strict;
+use warnings;
+
+use Config         qw( %Config );
+use Cwd            qw( abs_path );
+use File::Basename qw( basename dirname );
+use File::Spec     qw();
+
+my $install_base;
+BEGIN { $install_base = dirname dirname abs_path __FILE__ }
+
+use lib File::Spec->catdir( $install_base, qw( lib perl5 ) );
+
+use Run::Scripts ();
+
+# derive the pathname of the file containing the perl interpreter
+# https://perldoc.perl.org/perlvar#$%5EX
+my $perl_path = $Config{ perlpath };
+if ( $^O ne 'VMS' ) {
+  $perl_path .= $Config{ _exe }
+    unless $perl_path =~ m/$Config{ _exe }\z/i;
+}
+
+exec { $perl_path } ( basename( $perl_path ), Run::Scripts::main( @ARGV ) );
