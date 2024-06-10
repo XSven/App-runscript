@@ -3,7 +3,10 @@ use warnings;
 
 package App::runscript;
 
-our $VERSION = 'v1.0.0';
+# keeping the following $VERSION declaration on a single line is important
+#<<<
+use version 0.9915; our $VERSION = version->declare( 'v1.0.0' );
+#>>>
 
 use subs qw( main _croakf _which );
 

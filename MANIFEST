@@ -1,5 +1,11 @@
 bin/runscript
+Changes
+cpanfile
 lib/App/runscript.pm
 lib/App/runscript.pod
+LICENSE
+maint/AuthorExtensions.pl
 Makefile.PL
 MANIFEST			This list of files
+README
+t/00-load.t
