@@ -13,7 +13,7 @@ BEGIN { $install_base = dirname dirname abs_path __FILE__ }
 
 use lib File::Spec->catdir( $install_base, qw( lib perl5 ) );
 
-use Run::Scripts ();
+use App::runscript ();
 
 # derive the pathname of the file containing the perl interpreter
 # https://perldoc.perl.org/perlvar#$%5EX
@@ -23,4 +23,4 @@ if ( $^O ne 'VMS' ) {
     unless $perl_path =~ m/$Config{ _exe }\z/i;
 }
 
-exec { $perl_path } ( basename( $perl_path ), Run::Scripts::main( @ARGV ) );
+exec { $perl_path } ( basename( $perl_path ), App::runscript::main( @ARGV ) );

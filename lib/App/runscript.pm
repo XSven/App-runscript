@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-package Run::Scripts;
+package App::runscript;
 
 our $VERSION = 'v1.0.0';
 
