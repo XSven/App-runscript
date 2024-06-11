@@ -34,7 +34,10 @@ To maintain this module, run the following commands:
   make cover                   # coverage statistics in vim format
 
 The second command installs the module dependencies in a "local" directory
-using "cpanm".
+using "cpanm". The experimental "--with-configure" option is usually needed
+because setting the VERSION often fails due to a not up to date "version"
+module.  A reconfiguration (second "perl Makefile.PL" call) should not raise
+warnings anymore.
 
 COPYRIGHT AND LICENSE
 
