@@ -14,9 +14,13 @@ use Config         qw( %Config );
 use File::Basename qw( dirname );
 use File::Spec     qw();
 
-# FIXME: the name of this should be changed because it isn't a real "main"
-# function
-sub main ( @ ) {
+sub _croakf ( $@ ) {
+  require Carp;
+  @_ = ( ( @_ == 1 ? shift : sprintf shift, @_ ) . ', stopped' );
+  goto &Carp::croak;
+}
+
+sub _prepend_library_path ( @ ) {
   my ( $script ) = @_;
 
   if ( File::Spec->file_name_is_absolute( $script ) ) {
@@ -30,16 +34,10 @@ sub main ( @ ) {
   my $install_base     = dirname dirname $script;
   my $install_priv_lib = File::Spec->catdir( $install_base, qw( lib perl5 ) );
 
-  _croakf "Lib directory '%s' derived from script name '%s' does not exist", $install_priv_lib, $script
+  _croakf "Library path '%s' derived from script name '%s' does not exist", $install_priv_lib, $script
     unless -d $install_priv_lib;
 
   return ( "-I$install_priv_lib", $script, @_ );
-}
-
-sub _croakf ( $@ ) {
-  require Carp;
-  @_ = ( ( @_ == 1 ? shift : sprintf shift, @_ ) . ', stopped' );
-  goto &Carp::croak;
 }
 
 sub _which ( $;$ ) {

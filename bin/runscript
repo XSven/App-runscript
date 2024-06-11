@@ -23,4 +23,4 @@ if ( $^O ne 'VMS' ) {
     unless $perl_path =~ m/$Config{ _exe }\z/i;
 }
 
-exec { $perl_path } ( basename( $perl_path ), App::runscript::main( @ARGV ) );
+exec { $perl_path } ( basename( $perl_path ), App::runscript::_prepend_library_path( @ARGV ) );
