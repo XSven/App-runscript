@@ -11,7 +11,7 @@ use version 0.9915; our $VERSION = version->declare( 'v1.0.0' );
 use subs qw( main _croakf _which );
 
 use Config         qw( %Config );
-use File::Basename qw( dirname );
+use File::Basename qw( basename dirname );
 use File::Spec     qw();
 
 sub _croakf ( $@ ) {
@@ -31,13 +31,16 @@ sub _prepend_library_path ( @ ) {
   }
   shift;
 
-  my $install_base     = dirname dirname $script;
-  my $install_priv_lib = File::Spec->catdir( $install_base, qw( lib perl5 ) );
+  my $install_bin = dirname $script;
+  _croakf "Basename of '%s' is not 'bin'", $install_bin unless basename( $install_bin ) eq 'bin';
 
-  _croakf "Library path '%s' derived from script name '%s' does not exist", $install_priv_lib, $script
-    unless -d $install_priv_lib;
+  my $install_base = dirname dirname $script;
+  my $install_lib  = File::Spec->catdir( $install_base, qw( lib perl5 ) );
 
-  return ( "-I$install_priv_lib", $script, @_ );
+  _croakf "Library path '%s' derived from script name '%s' does not exist", $install_lib, $script
+    unless -d $install_lib;
+
+  return ( "-I$install_lib", $script, @_ );
 }
 
 sub _which ( $;$ ) {
