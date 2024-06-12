@@ -26,18 +26,19 @@ MAINTENANCE
 To maintain this module, run the following commands:
 
   perl Makefile.PL
-  make PERL_CPANM_OPT="--notest --with-configure --with-develop --with-recommends" installdeps
+  make PERL_CPANM_OPT="--notest --with-develop --with-recommends" installdeps
   perl Makefile.PL
   make
   make RELEASE_TESTING=1 test  # use Test::Harness
   make RELEASE_TESTING=1 testp # use TAP::Harness
   make cover                   # coverage statistics in vim format
 
-The second command installs the module dependencies in a "local" directory
-using "cpanm". The experimental "--with-configure" option is usually needed
-because setting the VERSION often fails due to a not up to date "version"
-module.  A reconfiguration (second "perl Makefile.PL" call) should not raise
-warnings anymore.
+The "installdeps" phony target "make" command call installs the module
+dependencies in the "local" directory using "cpanm". The experimental cpanm
+option "--with-configure" is set implicitly because setting the VERSION often
+fails due to a not up to date "version" module "configure" phase dependency.  A
+reconfiguration (the second "perl Makefile.PL" call) should not raise warnings
+anymore.
 
 COPYRIGHT AND LICENSE
 

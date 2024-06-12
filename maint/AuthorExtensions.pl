@@ -42,7 +42,7 @@ endif
 
 $local_lib_root: cpanfile
 	\$(NOECHO) rm -fr \$@
-	\$(NOECHO) cpanm --no-man-pages --local-lib-contained \$@ --installdeps .
+	\$(NOECHO) cpanm --with-configure --no-man-pages --local-lib-contained \$@ --installdeps .
 
 .PHONY: installdeps
 installdeps: $local_lib_root
