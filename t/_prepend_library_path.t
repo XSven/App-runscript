@@ -24,7 +24,7 @@ like exception { App::runscript::_prepend_library_path( 'baz.pl' ) }, qr/\ACanno
     'script is not in bin directory';
 }
 
-like exception { App::runscript::_prepend_library_path( App::runscript::_which( 'grep', 1 ) ) }, qr/\ALibrary path/,
+like exception { App::runscript::_prepend_library_path( App::runscript::_which( 'perl', 1 ) ) }, qr/\ALibrary path/,
   'library path does not exist';
 
 subtest 'successfull execution' => sub {
