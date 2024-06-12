@@ -8,7 +8,7 @@ package App::runscript;
 use version 0.9915; our $VERSION = version->declare( 'v1.0.0' );
 #>>>
 
-use subs qw( main _croakf _which );
+use subs qw( _croakf _is_dir _prepend_library_path _which );
 
 use Config         qw( %Config );
 use File::Basename qw( basename dirname );
@@ -18,6 +18,11 @@ sub _croakf ( $@ ) {
   require Carp;
   @_ = ( ( @_ == 1 ? shift : sprintf shift, @_ ) . ', stopped' );
   goto &Carp::croak;
+}
+
+
+sub _is_dir ( $  ) {
+  return -d $_[0]
 }
 
 sub _prepend_library_path ( @ ) {
@@ -38,7 +43,7 @@ sub _prepend_library_path ( @ ) {
   my $install_lib  = File::Spec->catdir( $install_base, qw( lib perl5 ) );
 
   _croakf "Library path '%s' derived from script name '%s' does not exist", $install_lib, $script
-    unless -d $install_lib;
+    unless _is_dir $install_lib;
 
   return ( "-I$install_lib", $script, @_ );
 }
