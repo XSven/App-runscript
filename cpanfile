@@ -2,7 +2,6 @@ use strict;
 use warnings;
 
 on configure => sub {
-  requires 'App::cpanminus'                => '1.7046';
   requires 'Config'                        => '0';
   requires 'ExtUtils::MakeMaker::CPANfile' => '0';
   requires 'File::Basename'                => '0';
