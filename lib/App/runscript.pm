@@ -8,7 +8,7 @@ package App::runscript;
 use version 0.9915; our $VERSION = version->declare( 'v1.0.0' );
 #>>>
 
-use subs qw( main _croakf _is_dir _prepend_library_path _which );
+use subs qw( main _croakf _is_dir _prepend_install_lib _which );
 
 use Config         qw( %Config );
 use File::Basename qw( basename dirname );
@@ -25,7 +25,7 @@ sub main ( \@ ) {
       unless $perl_path =~ m/$Config{ _exe }\z/i;
   }
 
-  exec { $perl_path } ( basename( $perl_path ), _prepend_library_path( @ARGV ) );
+  exec { $perl_path } ( basename( $perl_path ), _prepend_install_lib( @ARGV ) );
 }
 
 sub _croakf ( $@ ) {
@@ -38,7 +38,7 @@ sub _is_dir ( $ ) {
   return -d $_[ 0 ];
 }
 
-sub _prepend_library_path ( @ ) {
+sub _prepend_install_lib ( @ ) {
   my ( $script ) = @_;
 
   if ( File::Spec->file_name_is_absolute( $script ) ) {

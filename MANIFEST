@@ -1,4 +1,5 @@
 .perlcriticrc
+App-runscript-v1.0.0.tar.gz
 bin/runscript
 Changes
 cpanfile
@@ -12,5 +13,5 @@ README
 t/00-load.t
 t/01-pod.t
 t/02-critic.t
-t/03-_prepend_library_path.t
+t/03-_prepend_install_lib.t
 t/04-_which.t
