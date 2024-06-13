@@ -6,20 +6,21 @@ App::runscript - Module that implements the runscript utility
 
 =head1 SYNOPSIS
 
-  runscript <perl application> <arguments pass to the perl application>
+  runscript <perl application> <arguments passed to the perl application>
 
 =head1 DESCRIPTION
 
-This module assumes that you have deployed a perl application (application)
-locally using the L<local::lib/Other-bootstrapping-options> procedure.  Usually
-you are able to execute the application only because the PERL5LIB environment
-variable was amended. This amendment is needed so that the application is able
-to locate the libraries it depends on. If the application does not find its
-dependencies it will fail with the message
+This module assumes that you have deployed a perl application locally using the
+L<local::lib/Other-bootstrapping-options> procedure.  Usually you are able to
+execute the application only because the PERL5LIB environment variable was
+amended. This amendment is needed so that the application is able to locate the
+libraries it depends on. If the application does not find its dependencies it
+will fail with the message
 
   Can't locate ... in @INC (@INC contains: ...
 
-The C<runscript> utility helps you to avoid the PERL5LIB amendment.
+The C<runscript> utility helps you to avoid the PERL5LIB amendment. It has the
+following processing steps:
 
 =over
 
