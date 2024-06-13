@@ -39,32 +39,32 @@ sub _is_dir ( $ ) {
 }
 
 sub _locate_install_lib ( $ ) {
-  my ( $script ) = @_;
+  my ( $application ) = @_;
 
-  my $install_bin = dirname $script;
+  my $install_bin = dirname $application;
   _croakf "Basename of '%s' is not 'bin'", $install_bin unless basename( $install_bin ) eq 'bin';
 
   my $install_base = dirname $install_bin;
   my $install_lib  = File::Spec->catdir( $install_base, qw( lib perl5 ) );
 
-  _croakf "Library path '%s' derived from script name '%s' does not exist", $install_lib, $script
+  _croakf "Library path '%s' derived from application '%s' does not exist", $install_lib, $application
     unless _is_dir $install_lib;
 
   return $install_lib;
 }
 
 sub _prepend_install_lib ( @ ) {
-  my ( $script ) = @_;
+  my ( $application ) = @_;
 
-  if ( File::Spec->file_name_is_absolute( $script ) ) {
-    _croakf "Script '%s' has no execute permission", $script unless -x $script;
+  if ( File::Spec->file_name_is_absolute( $application ) ) {
+    _croakf "Script '%s' has no execute permission", $application unless -x $application;
   } else {
-    $script = _which $script, 1;
-    _croakf "Cannot find script '%s' in PATH (%s)", $_[ 0 ], $ENV{ PATH } unless defined $script;
+    $application = _which $application, 1;
+    _croakf "Cannot find application '%s' in PATH (%s)", $_[ 0 ], $ENV{ PATH } unless defined $application;
   }
   shift;
 
-  return ( '-I' . _locate_install_lib( $script ), $script, @_ );
+  return ( '-I' . _locate_install_lib( $application ), $application, @_ );
 }
 
 sub _which ( $;$ ) {
