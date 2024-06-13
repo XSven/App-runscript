@@ -7,10 +7,15 @@ use Cwd            qw( abs_path );
 use File::Basename qw( dirname );
 use File::Spec     qw();
 
-my $install_base;
-BEGIN { $install_base = dirname dirname abs_path __FILE__ }
-
-use lib File::Spec->catdir( $install_base, qw( lib perl5 ) );
+BEGIN {
+  # chicken and egg problem:
+  # we are not able to use App::runscript::_locate_install_lib()
+  my $install_lib = File::Spec->catdir( dirname( dirname( abs_path( __FILE__ ) ) ), qw( lib perl5 ) );
+  if ( -d $install_lib ) {
+    require lib;
+    lib->import( $install_lib );
+  }
+}
 
 use App::runscript ();
 
