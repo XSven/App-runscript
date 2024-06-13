@@ -8,7 +8,7 @@ package App::runscript;
 use version 0.9915; our $VERSION = version->declare( 'v1.0.0' );
 #>>>
 
-use subs qw( main _croakf _is_dir _prepend_install_lib _which );
+use subs qw( main _croakf _is_dir _locate_install_lib _prepend_install_lib _which );
 
 use Config         qw( %Config );
 use File::Basename qw( basename dirname );
@@ -38,6 +38,21 @@ sub _is_dir ( $ ) {
   return -d $_[ 0 ];
 }
 
+sub _locate_install_lib ( $ ) {
+  my ( $script ) = @_;
+
+  my $install_bin = dirname $script;
+  _croakf "Basename of '%s' is not 'bin'", $install_bin unless basename( $install_bin ) eq 'bin';
+
+  my $install_base = dirname $install_bin;
+  my $install_lib  = File::Spec->catdir( $install_base, qw( lib perl5 ) );
+
+  _croakf "Library path '%s' derived from script name '%s' does not exist", $install_lib, $script
+    unless _is_dir $install_lib;
+
+  return $install_lib;
+}
+
 sub _prepend_install_lib ( @ ) {
   my ( $script ) = @_;
 
@@ -49,16 +64,7 @@ sub _prepend_install_lib ( @ ) {
   }
   shift;
 
-  my $install_bin = dirname $script;
-  _croakf "Basename of '%s' is not 'bin'", $install_bin unless basename( $install_bin ) eq 'bin';
-
-  my $install_base = dirname $install_bin;
-  my $install_lib  = File::Spec->catdir( $install_base, qw( lib perl5 ) );
-
-  _croakf "Library path '%s' derived from script name '%s' does not exist", $install_lib, $script
-    unless _is_dir $install_lib;
-
-  return ( "-I$install_lib", $script, @_ );
+  return ( '-I' . _locate_install_lib( $script ), $script, @_ );
 }
 
 sub _which ( $;$ ) {
