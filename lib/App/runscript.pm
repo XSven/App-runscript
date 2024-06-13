@@ -8,11 +8,25 @@ package App::runscript;
 use version 0.9915; our $VERSION = version->declare( 'v1.0.0' );
 #>>>
 
-use subs qw( _croakf _is_dir _prepend_library_path _which );
+use subs qw( main _croakf _is_dir _prepend_library_path _which );
 
 use Config         qw( %Config );
 use File::Basename qw( basename dirname );
 use File::Spec     qw();
+
+sub main ( \@ ) {
+  local @ARGV = @{ $_[ 0 ] };
+
+  # derive the pathname of the file containing the perl interpreter
+  # https://perldoc.perl.org/perlvar#$%5EX
+  my $perl_path = $Config{ perlpath };
+  if ( $^O ne 'VMS' ) {
+    $perl_path .= $Config{ _exe }
+      unless $perl_path =~ m/$Config{ _exe }\z/i;
+  }
+
+  exec { $perl_path } ( basename( $perl_path ), _prepend_library_path( @ARGV ) );
+}
 
 sub _croakf ( $@ ) {
   require Carp;
@@ -20,9 +34,8 @@ sub _croakf ( $@ ) {
   goto &Carp::croak;
 }
 
-
-sub _is_dir ( $  ) {
-  return -d $_[0]
+sub _is_dir ( $ ) {
+  return -d $_[ 0 ];
 }
 
 sub _prepend_library_path ( @ ) {

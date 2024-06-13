@@ -1,3 +1,4 @@
+.perlcriticrc
 bin/runscript
 Changes
 cpanfile
@@ -9,5 +10,7 @@ Makefile.PL
 MANIFEST			This list of files
 README
 t/00-load.t
-t/_prepend_library_path.t
-t/_which.t
+t/01-pod.t
+t/02-critic.t
+t/03-_prepend_library_path.t
+t/04-_which.t
