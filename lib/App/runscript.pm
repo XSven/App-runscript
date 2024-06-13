@@ -52,7 +52,7 @@ sub _prepend_library_path ( @ ) {
   my $install_bin = dirname $script;
   _croakf "Basename of '%s' is not 'bin'", $install_bin unless basename( $install_bin ) eq 'bin';
 
-  my $install_base = dirname dirname $script;
+  my $install_base = dirname $install_bin;
   my $install_lib  = File::Spec->catdir( $install_base, qw( lib perl5 ) );
 
   _croakf "Library path '%s' derived from script name '%s' does not exist", $install_lib, $script
