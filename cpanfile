@@ -24,8 +24,11 @@ on runtime => sub {
 };
 
 on test => sub {
-  requires 'App::Prove'    => '3.17';
-  requires 'Sub::Override' => '0';
+  requires 'App::Prove' => '3.17';
+  # the following strict version requirement should be obsolete if
+  # https://github.com/Ovid/sub-override/pull/15
+  # is part of a new release
+  requires 'Sub::Override' => '== 0.10';
   requires 'Test::Fatal'   => '0';
   requires 'Test::Needs'   => '0';
   requires 'Test::More'    => '0.92';
