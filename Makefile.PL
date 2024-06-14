@@ -23,10 +23,11 @@ my %WriteMakefileArgs = (
     provides    => {
       'App::runscript' => {
         file    => 'lib/App/runscript.pm',
-        version => 'v1.0.0',
+        version => 'v1.0.0_01',
       },
     },
-    resources => {
+    release_status => 'testing',
+    resources      => {
       repository => {
         type => 'git',
         url  => 'git://github.com/XSven/App-runscript.git',
