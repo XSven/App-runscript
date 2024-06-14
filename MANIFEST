@@ -1,5 +1,4 @@
 .perlcriticrc
-App-runscript-v1.0.0.tar.gz
 bin/runscript
 Changes
 cpanfile
