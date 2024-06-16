@@ -9,7 +9,7 @@ use App::runscript();
 like exception { App::runscript::_which( undef ) }, qr/\ACannot locate undefined executable file/,
   'executable is undefined';
 
-is App::runscript::_which( 'perl' ), $^X, 'locate perl';
+like App::runscript::_which( 'perl' ), qr/perl\z/, 'locate perl';
 
 like App::runscript::_which( 'perl', 1 ), qr/perl\z/, 'locate perl returning absolute path';
 

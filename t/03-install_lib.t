@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More import => [ qw( is is_deeply like pass plan subtest ) ], tests => 5;
+use Test::More import => [ qw( is is_deeply like pass plan subtest ) ], tests => 6;
 use Test::Fatal qw( exception );
 
 use File::Basename qw( basename );
@@ -25,8 +25,13 @@ like exception { App::runscript::_prepend_install_lib( 'baz.pl' ) }, qr/\ACannot
     'application is not in bin directory';
 }
 
-like exception { App::runscript::_prepend_install_lib( App::runscript::_which( 'perl', 1 ) ) }, qr/\ALibrary path/,
-  'library path does not exist';
+{
+  # mock is needed because some perl installations have a lib/perl5 library path
+  my $override =
+    Sub::Override->new( 'App::runscript::_is_dir' => sub ( $ ) { pass( 'mocked _is_dir() called once' ); return 0 } );
+  like exception { App::runscript::_prepend_install_lib( App::runscript::_which( 'perl', 1 ) ) }, qr/\ALibrary path/,
+    'library path does not exist';
+}
 
 subtest 'successfull execution' => sub {
   plan tests => 5;
