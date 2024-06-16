@@ -5,7 +5,7 @@ package App::runscript;
 
 # keeping the following $VERSION declaration on a single line is important
 #<<<
-use version 0.9915; our $VERSION = version->declare( 'v1.0.0_01' );
+use version 0.9915; our $VERSION = version->declare( 'v1.0.0_02' );
 #>>>
 
 use subs qw( main _croakf _is_dir _locate_install_lib _prepend_install_lib _which );
@@ -89,17 +89,3 @@ sub _which ( $;$ ) {
 }
 
 1;
-__END__
-
-https://stackoverflow.com/questions/3841322/how-do-i-load-libraries-relative-to-the-script-location-in-perl
-
-https://perldoc.perl.org/perlrun
-https://perldoc.perl.org/functions/exec
-
-
-https://metacpan.org/pod/Path::This
-https://metacpan.org/pod/lib::relative
-https://metacpan.org/pod/FindBin
-
-https://metacpan.org/pod/lib::root
-https://metacpan.org/pod/FindBin::libs

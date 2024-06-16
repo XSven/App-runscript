@@ -23,7 +23,7 @@ my %WriteMakefileArgs = (
     provides    => {
       'App::runscript' => {
         file    => 'lib/App/runscript.pm',
-        version => 'v1.0.0_01',
+        version => 'v1.0.0_02',
       },
     },
     release_status => 'testing',
