@@ -73,7 +73,7 @@ sub _which ( $;$ ) {
   _croakf 'Cannot locate undefined executable file' unless defined $executable;
 
   # path_sep refers to the command shell search PATH separator character
-  for ( split /$Config{ path_sep }/, $ENV{ PATH } ) { ## no critic (RequireExtendedFormatting)
+  for ( split /$Config{ path_sep }/, $ENV{ PATH } ) {
     my $file = File::Spec->catfile( $_, $executable );
     if ( -x $file ) {
       if ( $abs_path ) {
