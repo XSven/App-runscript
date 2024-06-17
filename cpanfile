@@ -19,6 +19,7 @@ on runtime => sub {
   requires 'Cwd'            => '0';
   requires 'File::Basename' => '0';
   requires 'File::Spec'     => '0';
+  requires 'File::Which'    => '0';
   requires 'strict'         => '0';
   requires 'warnings'       => '0';
 };

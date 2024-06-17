@@ -13,6 +13,7 @@ use subs qw( main _croakf _is_dir _locate_install_lib _prepend_install_lib _whic
 use Config         qw( %Config );
 use File::Basename qw( basename dirname );
 use File::Spec     qw();
+use File::Which    qw( which );
 
 sub main ( \@ ) {
   local @ARGV = @{ $_[ 0 ] };
@@ -72,20 +73,13 @@ sub _which ( $;$ ) {
 
   _croakf 'Cannot locate undefined executable file' unless defined $executable;
 
-  # path_sep refers to the command shell search PATH separator character
-  for ( split /$Config{ path_sep }/, $ENV{ PATH } ) {
-    my $file = File::Spec->catfile( $_, $executable );
-    if ( -x $file ) {
-      if ( $abs_path ) {
-        require Cwd;
-        return Cwd::abs_path( $file );
-      } else {
-        return $file;
-      }
-    }
+  return unless my $file = which $executable;
+  if ( $abs_path ) {
+    require Cwd;
+    return Cwd::abs_path( $file );
+  } else {
+    return $file;
   }
-
-  return;
 }
 
 1;
