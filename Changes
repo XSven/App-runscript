@@ -1,5 +1,9 @@
 Release history for App-runscript
 
+v1.0.0_03    2024-06-17
+             - make tests more robust
+             - use File::Which::which() to implement _which()
+
 v1.0.0_02    2024-06-16
              - make tests more robust
 
