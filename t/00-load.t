@@ -3,6 +3,8 @@ use warnings;
 
 use Test::More import => [ qw( BAIL_OUT note plan use_ok ) ];
 
+use Config qw( %Config );
+
 my @module = qw( App::runscript );
 
 # https://metacpan.org/pod/perlsecret#Venus
@@ -10,9 +12,10 @@ my @module = qw( App::runscript );
 plan tests => 0 + @module;
 
 note "Perl $] at $^X";
-note 'Test::More ', Test::More->VERSION;
+note 'Test::More ',    Test::More->VERSION;
 note 'Test::Builder ', Test::Builder->VERSION;
-note join "\n  ", "\@INC:", @INC;
+note join "\n  ",      '@INC:', @INC;
+note join "\n  ",      'PATH:', split( /$Config{ path_sep }/, $ENV{ PATH } );
 
 for my $module ( @module ) {
 
