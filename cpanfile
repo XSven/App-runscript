@@ -14,7 +14,7 @@ on configure => sub {
 };
 
 on runtime => sub {
-  requires 'Carp'           => '0';
+  requires 'Carp'           => '1.32';    # * bugfix: don't vivify @CARP_NOT and @ISA in caller's namespace
   requires 'Config'         => '0';
   requires 'Cwd'            => '0';
   requires 'File::Basename' => '0';

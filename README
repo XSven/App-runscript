@@ -32,13 +32,6 @@ To maintain this module, run the following commands:
   make RELEASE_TESTING=1 testp # use TAP::Harness
   make cover                   # coverage statistics in vim format
 
-The "installdeps" phony target "make" command call installs the module
-dependencies in the "local" directory using "cpanm". The experimental cpanm
-option "--with-configure" is set implicitly because setting the VERSION often
-fails due to a not up to date "version" module "configure" phase dependency.  A
-reconfiguration (the second "perl Makefile.PL" call) should not raise warnings
-anymore.
-
 COPYRIGHT AND LICENSE
 
 This software is copyright (c) 2024 by Sven Willenbuecher.
