@@ -7,10 +7,9 @@ use Config         qw( %Config );
 use File::Basename qw( basename );
 use File::Spec     qw();
 
-my ( $blib_lib, $local_lib_root, $local_bin, $local_lib, $prove_rc_file, $t_lib );
+my ( $local_lib_root, $local_bin, $local_lib, $prove_rc_file, $t_lib );
 
 BEGIN {
-  $blib_lib       = File::Spec->catfile( $ENV{ PWD },     qw( blib lib ) );
   $local_lib_root = File::Spec->catfile( $ENV{ PWD },     'local' );
   $local_bin      = File::Spec->catfile( $local_lib_root, qw( bin ) );
   $local_lib      = File::Spec->catfile( $local_lib_root, qw( lib perl5 ) );
@@ -31,24 +30,14 @@ $ENV{ PATH } = ## no critic (RequireLocalizedPunctuationVars)
   *MY::postamble = sub {
     my $make_fragment = '';
 
-    $make_fragment .= <<"MAKE_FRAGMENT" if _which 'cpanm';
+    $make_fragment .= <<"MAKE_FRAGMENT";
 export PATH := $ENV{ PATH }
 
 ifdef PERL5LIB
-  PERL5LIB := @{ [ -d $t_lib ? "$t_lib:" : () ] }$blib_lib:$local_lib:\$(PERL5LIB)
+  PERL5LIB := @{ [ -d $t_lib ? "$t_lib:" : () ] }$local_lib:\$(PERL5LIB)
 else
-  export PERL5LIB := @{ [ -d $t_lib ? "$t_lib:" : () ] }$blib_lib:$local_lib
+  export PERL5LIB := @{ [ -d $t_lib ? "$t_lib:" : () ] }$local_lib
 endif
-
-$local_lib_root: cpanfile
-	\$(NOECHO) rm -fr \$@
-	\$(NOECHO) cpanm --with-configure --no-man-pages --local-lib-contained \$@ --installdeps .
-
-.PHONY: installdeps
-installdeps: $local_lib_root
-MAKE_FRAGMENT
-
-    $make_fragment .= <<"MAKE_FRAGMENT";
 
 # runs the last modified test script
 .PHONY: testlm
@@ -62,7 +51,7 @@ MAKE_FRAGMENT
 # runs test scripts through TAP::Harness (prove) instead of Test::Harness (ExtUtils::MakeMaker)
 .PHONY: testp
 testp: pure_all
-	\$(NOECHO) \$(FULLPERLRUN) $prove\$(if \$(TEST_VERBOSE:0=), --verbose) --norc@{ [ -f $prove_rc_file ? " --rc $prove_rc_file"  : () ] } --recurse --shuffle \$(TEST_FILES)
+	\$(NOECHO) \$(FULLPERLRUN) $prove\$(if \$(TEST_VERBOSE:0=), --verbose) --norc@{ [ -f $prove_rc_file ? " --rc $prove_rc_file"  : () ] } --blib --recurse --shuffle \$(TEST_FILES)
 MAKE_FRAGMENT
 
     $make_fragment .= <<"MAKE_FRAGMENT" if _which 'cover';
