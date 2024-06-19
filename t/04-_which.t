@@ -14,6 +14,6 @@ like App::runscript::_which( 'perl' ), qr/perl\z/, 'locate perl';
 like App::runscript::_which( 'perl', 1 ), qr/perl\z/, 'locate perl returning absolute path';
 
 {
-  local $ENV{ PATH } = File::Spec->catfile( $ENV{ PWD }, 'bin' ) . ':' . $ENV{ PATH };
+  local $ENV{ PATH } = File::Spec->catfile( $ENV{ PWD }, 'bin' );
   is App::runscript::_which( 'runscript' ), undef, 'runscript has no execute permissions';
 }
