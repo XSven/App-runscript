@@ -61,15 +61,6 @@ cover:
 	\$(NOECHO) cover -test -ignore @{ [ basename( $local_lib_root ) ] } -report vim
 MAKE_FRAGMENT
 
-    $make_fragment .= <<"MAKE_FRAGMENT" if _which 'cpantorpm';
-
-# this definition of the CPAN to RPM target does not require that the
-# environment variables PERL_MM_OPT, and PERL_MB_OPT are undefined
-.PHONY: torpm
-torpm: tardist
-	\$(NOECHO) cpantorpm --debug --NO-DEPS --install-base $Config{ prefix } --install-type site \$(DISTVNAME).tar\$(SUFFIX)
-MAKE_FRAGMENT
-
     return $make_fragment;
   };
 }

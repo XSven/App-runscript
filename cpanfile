@@ -34,9 +34,8 @@ on test => sub {
 
 on develop => sub {
   requires 'Devel::Cover'       => '0';
+  requires 'Perl::Tidy'         => '0';
   requires 'Template'           => '0';
   requires 'Test::Perl::Critic' => '0';
   requires 'Test::Pod'          => '1.26';
-  suggests 'App::CPANtoRPM'         => '0';
-  suggests 'App::Software::License' => '0';
 };
