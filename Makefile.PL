@@ -18,12 +18,13 @@ my %WriteMakefileArgs = (
   EXE_FILES        => [ qw( bin/runscript ) ],
   LICENSE          => 'Perl_5',
   MIN_PERL_VERSION => '5.10.1',
+  DISTVNAME        => "App-runscript-1.0.0-TRIAL4",
   META_MERGE       => {
     'meta-spec' => { version => 2 },
     provides    => {
       'App::runscript' => {
         file    => 'lib/App/runscript.pm',
-        version => 'v1.0.0_03',
+        version => '1.0.0',
       },
     },
     release_status => 'testing',
