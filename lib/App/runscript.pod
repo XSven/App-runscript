@@ -22,23 +22,23 @@ will fail with the message
 The C<runscript> utility helps you to avoid the PERL5LIB amendment. It has the
 following processing steps:
 
-=over
+=over 4
 
-=item -
+=item 1.
 
 It finds out the absolute path of a given perl application. If the application
-is in the PATH you may pass its basename to runscript.
+is in the PATH you may pass its basename to C<runscript>.
 
-=item -
+=item 2.
 
-It takes the dirname of the absolute path and removes the I<bin> subdirectory.
+It takes the dirname of the absolute path and removes the I<bin/> subdirectory.
 The result is the "install base".
 
-=item -
+=item 3.
 
-It adds the directory I<lib/perl5> to the "install base".
+It adds the directory I<lib/perl5/> to the "install base".
 
-=item -
+=item 4.
 
 It prepends the final library path to C<@INC> before executing the
 application.
@@ -47,7 +47,7 @@ application.
 
 =head1 SEE ALSO
 
-=over 
+=over 4
 
 =item *
 
