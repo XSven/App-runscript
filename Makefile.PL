@@ -17,7 +17,7 @@ my %WriteMakefileArgs = (
   ABSTRACT_FROM    => 'lib/App/runscript.pod',
   EXE_FILES        => [ qw( bin/runscript ) ],
   LICENSE          => 'Perl_5',
-  MIN_PERL_VERSION => '5.10.1',
+  MIN_PERL_VERSION => '5.8.9',
   DISTVNAME        => "App-runscript-1.0.0-TRIAL4",
   META_MERGE       => {
     'meta-spec' => { version => 2 },
