@@ -20,6 +20,8 @@ on runtime => sub {
   requires 'File::Basename' => '0';
   requires 'File::Spec'     => '0';
   requires 'File::Which'    => '0';
+  requires 'Getopt::Std'    => '0';
+  requires 'POSIX'          => '0';
   requires 'strict'         => '0';
   requires 'warnings'       => '0';
 };

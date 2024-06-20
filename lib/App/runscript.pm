@@ -14,9 +14,21 @@ use Config         qw( %Config );
 use File::Basename qw( basename dirname );
 use File::Spec     qw();
 use File::Which    qw( which );
+use Getopt::Std    qw( getopts );
+use POSIX          qw( EXIT_SUCCESS );
 
 sub main ( \@ ) {
   local @ARGV = @{ $_[ 0 ] };
+
+  getopts( '-vh', my $opts = {} );
+  if ( $opts->{ v } ) {
+    print STDOUT "runscript $VERSION\n";
+    return EXIT_SUCCESS;
+  } elsif ( $opts->{ h } ) {
+    print STDOUT "Usage: runscript [ -h | -v  ]\n",
+      "       runscript <perl application> <arguments passed to the perl application>\n";
+    return EXIT_SUCCESS;
+  }
 
   # derive the pathname of the file containing the perl interpreter
   # https://perldoc.perl.org/perlvar#$%5EX
