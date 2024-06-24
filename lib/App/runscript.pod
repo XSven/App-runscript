@@ -6,6 +6,8 @@ App::runscript - Module that implements the runscript utility
 
 =head1 SYNOPSIS
 
+  runscript [ -V | -h ]
+
   runscript <perl application> <arguments passed to the perl application>
 
 =head1 DESCRIPTION

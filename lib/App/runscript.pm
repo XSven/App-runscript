@@ -20,12 +20,12 @@ use POSIX          qw( EXIT_SUCCESS );
 sub main ( \@ ) {
   local @ARGV = @{ $_[ 0 ] };
 
-  getopts( '-vh', my $opts = {} );
-  if ( $opts->{ v } ) {
+  getopts( '-Vh', my $opts = {} );
+  if ( $opts->{ V } ) {
     print STDOUT "runscript $VERSION\n";
     return EXIT_SUCCESS;
   } elsif ( $opts->{ h } ) {
-    print STDOUT "Usage: runscript [ -h | -v  ]\n",
+    print STDOUT "Usage: runscript [ -V | -h  ]\n",
       "       runscript <perl application> <arguments passed to the perl application>\n";
     return EXIT_SUCCESS;
   }
