@@ -9,6 +9,7 @@ use version 0.9915; our $VERSION = version->declare( '1.0.0' );
 #>>>
 
 use subs qw( main _croakf _is_dir _locate_install_lib _prepend_install_lib _which );
+use vars qw( @CARP_NOT );
 
 use Config         qw( %Config );
 use File::Basename qw( basename dirname );
@@ -20,7 +21,16 @@ use POSIX          qw( EXIT_SUCCESS );
 sub main ( \@ ) {
   local @ARGV = @{ $_[ 0 ] };
 
-  getopts( '-Vh', my $opts = {} );
+  my $opts;
+  {
+    local $SIG{ __WARN__ } = sub {
+      local @CARP_NOT = qw( Getopt::Std );
+      my $warning = shift;
+      chomp $warning;
+      _croakf $warning;
+    };
+    getopts( '-Vh', $opts = {} );
+  }
   if ( $opts->{ V } ) {
     print STDOUT "runscript $VERSION\n";
     return EXIT_SUCCESS;
