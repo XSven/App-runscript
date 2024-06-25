@@ -1,5 +1,8 @@
 Release history for App-runscript
 
+1.0.0        2024-06-25
+             - prepare stable release
+
 1.0.0-TRIAL6 2024-06-24
              - croak if an unspecified option is found
              - use -V instead of -v as version option
@@ -22,4 +25,4 @@ v1.0.0_02    2024-06-16
              - make tests more robust
 
 v1.0.0_01    2024-06-14
-             - initial test release
+             - initial trial release

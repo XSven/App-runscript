@@ -12,14 +12,14 @@ App::runscript - Module that implements the runscript utility
 
 =head1 DESCRIPTION
 
-This module assumes that you have deployed a perl application locally using the
-L<local::lib/Other-bootstrapping-options> procedure.  Usually you are able to
-execute the application only because the PERL5LIB environment variable was
+This module assumes that you have deployed a "perl application" locally using
+the L<local::lib/Other-bootstrapping-options> procedure.  Usually you are able
+to execute the application only because the PERL5LIB environment variable was
 amended. This amendment is needed so that the application is able to locate the
 libraries it depends on. If the application does not find its dependencies it
 will fail with the message
 
-  Can't locate ... in @INC (@INC contains: ...
+  Can't locate ... in @INC (@INC contains: ...)
 
 The C<runscript> utility helps you to avoid the PERL5LIB amendment. It has the
 following processing steps:
@@ -38,12 +38,12 @@ The result is the "install base".
 
 =item 3.
 
-It adds the directory I<lib/perl5/> to the "install base".
+It adds the directory I<lib/perl5/> to the install base.
 
 =item 4.
 
-It prepends the final library path to C<@INC> before executing the
-application.
+It prepends the final library path to L<@INC|perlvar/"@INC"> before executing
+the application.
 
 =back
 
@@ -62,6 +62,10 @@ L<App::rlibperl>
 =item *
 
 L<App::local::lib::helper>
+
+=item *
+
+L<lib::relative>
 
 =back
 

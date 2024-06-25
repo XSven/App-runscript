@@ -18,7 +18,6 @@ my %WriteMakefileArgs = (
   EXE_FILES        => [ qw( bin/runscript ) ],
   LICENSE          => 'Perl_5',
   MIN_PERL_VERSION => '5.8.9',
-  DISTVNAME        => 'App-runscript-1.0.0-TRIAL6',
   META_MERGE       => {
     'meta-spec' => { version => 2 },
     provides    => {
@@ -27,8 +26,7 @@ my %WriteMakefileArgs = (
         version => '1.0.0',
       },
     },
-    release_status => 'testing',
-    resources      => {
+    resources => {
       repository => {
         type => 'git',
         url  => 'git://github.com/XSven/App-runscript.git',

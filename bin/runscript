@@ -9,7 +9,8 @@ use File::Spec     qw();
 
 BEGIN {
   # chicken and egg problem:
-  # we are not able to use App::runscript::_locate_install_lib()
+  # we are not able to use App::runscript::_locate_install_lib() or even
+  # lib::relative
   my $install_lib = File::Spec->catdir( dirname( dirname( abs_path( __FILE__ ) ) ), qw( lib perl5 ) );
   if ( -d $install_lib ) {
     require lib;
