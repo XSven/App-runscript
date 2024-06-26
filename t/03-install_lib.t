@@ -20,7 +20,7 @@ like exception { App::runscript::_prepend_install_lib( 'baz.pl' ) }, qr/\ACannot
   'application is not in PATH';
 
 {
-  my $application = File::Spec->rootdir . File::Spec->catfile( qw( foo bar baz.pl ) );
+  my $application = File::Spec->catfile( File::Spec->rootdir, qw( foo bar baz.pl ) );
   my $override    = Sub::Override->new(
     'App::runscript::_which' => sub ( $;$ ) { pass( 'mocked _which() called once' ); return $application } );
   like exception { App::runscript::_prepend_install_lib( 'baz.pl' ) },
@@ -39,14 +39,14 @@ like exception { App::runscript::_prepend_install_lib( 'baz.pl' ) }, qr/\ACannot
 subtest 'successfull execution' => sub {
   plan tests => 5;
 
-  my $expected_application = File::Spec->rootdir . File::Spec->catfile( qw( foo bin baz.pl ) );
+  my $expected_application = File::Spec->catfile( File::Spec->rootdir, qw( foo bin baz.pl ) );
   my $expected_args        = [ qw( arg1 arg2 ) ];
   my $override             = Sub::Override->new->override(
     'App::runscript::_which' => sub ( $;$ ) { pass( 'mocked _which() called once' ); return $expected_application } )
     ->override( 'App::runscript::_is_dir' => sub ( $ ) { pass( 'mocked _is_dir() called once' ); return 1 } );
 
   my @got = App::runscript::_prepend_install_lib( basename( $expected_application ), @$expected_args );
-  is $got[ 0 ], '-I' . File::Spec->rootdir . File::Spec->catfile( qw( foo lib perl5 ) ),
+  is $got[ 0 ], '-I' . File::Spec->catfile( File::Spec->rootdir, qw( foo lib perl5 ) ),
     'check library path passed to -I option';
   is $got[ 1 ], $expected_application, 'check absolute path of application';
   is_deeply [ @got[ 2 .. 3 ] ], $expected_args, 'check arguments passed to application';
